@@ -1,0 +1,11 @@
+def solution(s):
+    count = 0
+    num = 0
+    
+    while s != '1':
+        num += s.count('0')
+        s = s.replace('0', '')
+        s = bin(len(s))[2:]
+        count += 1
+    
+    return [count, num]
