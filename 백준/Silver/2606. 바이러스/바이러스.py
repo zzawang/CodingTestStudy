@@ -28,10 +28,10 @@ for i in range(V):
         n[a].append(b)
         n[b].append(a)
 
-arr1 = []
-dfs(arr1, [False]*(N+1), n, 1)
-print(len(arr1)-1)
+# arr1 = []
+# dfs(arr1, [False]*(N+1), n, 1)
+# print(len(arr1)-1)
 
-# arr2 = []
-# bfs(arr2, [False]*(N+1), n, 1)
-# print(len(arr2)-1)
+arr2 = []
+bfs(arr2, [False]*(N+1), n, 1)
+print(len(arr2)-1)
