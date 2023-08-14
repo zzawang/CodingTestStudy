@@ -1,3 +1,4 @@
+from collections import Counter
 def solution(s):
     answer = []
     pre = ''
@@ -5,12 +6,8 @@ def solution(s):
         if x.isdigit():
             pre += x
         elif pre.isdigit() and not x.isdigit():
-            answer.append(pre)
+            answer.append(int(pre))
             pre = ''
         
-    count = [int(x) for x in set(answer)]
-    dic = {}
-    for c in count:
-        dic[c] = answer.count(str(c))
-        
-    return sorted(dic.keys(), reverse = True, key = lambda x:dic[x])
+    count = dict(Counter(answer))
+    return sorted(count.keys(), reverse = True, key = lambda x:count[x])
