@@ -12,10 +12,8 @@ for tc in range(1, int(input()) + 1):
     num = 0
     index = -1
 
-    while True:
+    while arr[x + dx[(index + 1)%4]][y + dy[(index + 1)%4]] == 0:
         index = (index + 1)%4
-        if arr[x + dx[index]][y + dy[index]] != 0:
-            break
         while 0 <= x + dx[index] < n and 0 <= y + dy[index] < n and arr[x + dx[index]][y + dy[index]] == 0:
             num += 1
             x += dx[index]
