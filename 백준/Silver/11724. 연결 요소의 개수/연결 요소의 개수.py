@@ -4,13 +4,13 @@
 #         if not visited[i]:
 #             dfs(node, visited, i)
 # 
-# N, M = map(int, input().split())
+# N, M = map(int, sys.stdin.readline().split())
 # node = [[] for _ in range(N+1)]
 # visited = [False] * (N+1)
 # answer = 0
 # 
 # for _ in range(M):
-#     a, b = map(int, input().split())
+#     a, b = map(int, sys.stdin.readline().split())
 #     if b not in node[a]:
 #         node[a].append(b)
 # 
@@ -21,6 +21,7 @@
 # 
 # print(answer)
 
+import sys
 
 from collections import deque
 def bfs(node, visited, a):
@@ -34,13 +35,13 @@ def bfs(node, visited, a):
                 visited[i] = True
                 q.append(i)
 
-N, M = map(int, input().split())
+N, M = map(int, sys.stdin.readline().split())
 node = [[] for _ in range(N+1)]
 visited = [False] * (N+1)
 answer = 0
 
 for _ in range(M):
-    a, b = map(int, input().split())
+    a, b = map(int, sys.stdin.readline().split())
     node[a].append(b)
     node[b].append(a)
 
