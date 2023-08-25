@@ -1,3 +1,4 @@
+import sys
 from collections import deque
 def bfs(area, visited, n, m, tomato):
     dx = [0, 0, -1, 1]
@@ -23,7 +24,7 @@ def main():
     area = []
     visited = [[False] * m for _ in range(n)]
     for i in range(n):
-        area.append(list(map(int, input().split())))
+        area.append(list(map(int, sys.stdin.readline().split())))
 
     for i1 in range(n):
         for i2 in range(m):
@@ -33,7 +34,7 @@ def main():
                 area[i1][i2] = 1
 
     bfs(area, visited, n, m, tomato)
-    
+
     mx = 0
     for i1 in range(n):
         for i2 in range(m):
