@@ -9,7 +9,7 @@ def bfs(i1, i2):
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
             if 0 <= nx < n and 0 <= ny < m and arr[nx][ny] == 1 and (nx, ny) != (0, 0):
-                arr[nx][ny] = (arr[x][y] + 1)
+                arr[nx][ny] += arr[x][y]
                 q.append((nx, ny))
 
 
