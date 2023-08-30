@@ -1,10 +1,5 @@
 from collections import deque
 
-n, l, r = map(int, input().split())
-arr = []
-for _ in range(n):
-    arr.append(list(map(int, input().split())))
-
 def bfs(i1, i2):
     dx = [-1, 1, 0, 0]
     dy = [0, 0, -1, 1]
@@ -28,9 +23,14 @@ def bfs(i1, i2):
 
     return len(area)
 
-
+n, l, r = map(int, input().split())
+arr = []
+for _ in range(n):
+    arr.append(list(map(int, input().split())))
+    
 answer = 0
 while True:
+    # 이 부분이 중요. visited와 flag가 초기화되어야 함
     visited = [[False] * n for _ in range(n)]
     flag = False
     for i1 in range(n):
