@@ -27,7 +27,13 @@ for _ in range(N):
 max_count = []
 for i1 in range(N):
     for i2 in range(M):
+        # 위아래가 육지인 경우
+        if 0 <= i1 - 1 < N and 0 <= i1 + 1 < N and arr[i1 - 1][i2] == 'L' and arr[i1 + 1][i2] == 'L':
+            continue
+        # 양옆이 육지인 경우
+        if 0 <= i2 - 1 < M and 0 <= i2 + 1 < M and arr[i1][i2 - 1] == 'L' and arr[i1][i2 + 1] == 'L':
+            continue
         if arr[i1][i2] == 'L':
             max_count.append(bfs(i1, i2))
-            
+
 print(max(max_count))
