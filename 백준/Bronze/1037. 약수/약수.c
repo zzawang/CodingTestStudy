@@ -12,12 +12,17 @@ int main(void)
     for (int i = 0; i < n; i++){
         if (num[i] > max)
             max = num[i];
-        if(num[i] < min)
-            min=num[i];
         else
             continue;
     }
-    
+
+    for (int i = 0; i < n; i++){
+        if (num[i] < min)
+            min = num[i];
+        else
+            continue;
+    }
+
     printf("%d", max*min);
     return 0;
 }
