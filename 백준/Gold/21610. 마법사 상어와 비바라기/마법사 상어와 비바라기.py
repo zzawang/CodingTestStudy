@@ -34,12 +34,15 @@ def bfs(clouds, arr, n, d, s):
         arr[a][b] += counts[length]
 
     new_clouds = []
+    check = [[False]*n for _ in range(n)]
+    for a, b in clouds:
+        check[a][b] = True
+
     for i1 in range(n):
         for i2 in range(n):
-            if arr[i1][i2] >= 2:
-                if (i1, i2) not in clouds:
-                    new_clouds.append((i1, i2))
-                    arr[i1][i2] -= 2
+            if arr[i1][i2] >= 2 and not check[i1][i2]:
+                new_clouds.append((i1, i2))
+                arr[i1][i2] -= 2
 
     return new_clouds
 
