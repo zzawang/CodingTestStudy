@@ -12,7 +12,7 @@ def gravity(arr, n):
             elif arr[i1][i2] < -1:
                 count += 1
             elif count > 0 and arr[i1][i2] >= 0:
-                index = i1 + count #if i1 + count <= n - 1 else n - 1
+                index = i1 + count
                 arr[i1][i2], arr[index][i2] = arr[index][i2], arr[i1][i2]
 
     return arr
@@ -28,17 +28,13 @@ def rotate(arr, n):
 
 def bfs(arr, visited, n, i1, i2):
     # (시작행, 시작열)
-    q = deque([(i1, i2)])  # 시작은 일반 블록
+    q = deque([(i1, i2)])
     visited[i1][i2] = 1
 
     color_check = arr[i1][i2]
     blocks, rainbows = 0, 0
     block_group = []
     rainbow = []
-
-    # 그룹에는 일반 블록이 적어도 하나 있어야 하며, 일반 블록의 색은 모두 같아야 한다.
-    # 검은색 블록은 포함되면 안 되고, 무지개 블록은 얼마나 들어있든 상관없다.
-    # 그룹에 속한 블록의 개수는 2보다 크거나 같아야 한다.
 
     while q:
         x, y = q.popleft()
@@ -56,14 +52,15 @@ def bfs(arr, visited, n, i1, i2):
 
     for a, b in rainbow:
         visited[a][b] = 0
-
+    
+    # 블록 그룹의 기준 블록은 무지개 블록이 아닌 블록 중에서 행의 번호가 가장 작은 블록, 그러한 블록이 여러개면 열의 번호가 가장 작은 블록이다.
     block_group.sort(key=lambda x:(x[0], x[1]))
     for a, b in block_group:
         if arr[a][b] != 0:
             xx, yy = a, b
             break
 
-    # 블록 그룹의 기준 블록은 무지개 블록이 아닌 블록 중에서 행의 번호가 가장 작은 블록, 그러한 블록이 여러개면 열의 번호가 가장 작은 블록이다.
+    # 그룹에 속한 블록의 개수는 2보다 크거나 같아야 한다.
     if blocks < 2:
         return ()
     else:
@@ -89,20 +86,16 @@ while True:
     if not block_group_list:
         break
 
-    # 크기가 가장 큰 블록 그룹을 찾는다. 그러한 블록 그룹이 여러 개라면 포함된 무지개 블록의 수가 가장 많은 블록 그룹,
-    # 그러한 블록도 여러개라면 기준 블록의 행이 가장 큰 것을, 그 것도 여러개이면 열이 가장 큰 것을 찾는다.
+    # 크기가 가장 큰 블록 그룹을 찾는다. 
     block_group_list.sort(key=lambda x : (-x[0], -x[1], -x[2], -x[3]))
 
-    # 1에서 찾은 블록 그룹의 모든 블록을 제거한다. 블록 그룹에 포함된 블록의 수를 B라고 했을 때, B2점을 획득한다.
+    # 1에서 찾은 블록 그룹의 모든 블록을 제거하고, 블록 그룹에 포함된 블록의 수를 B라고 했을 때, B2점을 획득한다.
     for a, b in block_group_list[0][4]:
         arr[a][b] = -1e9
     score += (block_group_list[0][0])**2
 
-    # 격자에 중력이 작용한다. (검은색 블록을 제외한 모든 블록이 행의 번호가 큰 칸으로 이동)
     arr = gravity(arr, n)
-    # 격자가 90도 반시계 방향으로 회전한다.
     arr = rotate(arr, n)
-    # 다시 격자에 중력이 작용한다.
     arr = gravity(arr, n)
 
 print(score)
