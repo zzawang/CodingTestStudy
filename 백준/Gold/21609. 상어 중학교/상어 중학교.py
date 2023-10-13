@@ -26,15 +26,15 @@ def rotate(arr, n):
         new_arr.append(array)
     return new_arr
 
-def bfs(arr, n, i1, i2):
-    # (블록 개수, 무지개 블록의 수, 시작행, 시작열)
+def bfs(arr, visited, n, i1, i2):
+    # (시작행, 시작열)
     q = deque([(i1, i2)])  # 시작은 일반 블록
-    visited = [[0] * n for _ in range(n)]
     visited[i1][i2] = 1
+
     color_check = arr[i1][i2]
     blocks, rainbows = 0, 0
-    xx, yy = i1, i2  # 기준 행, 열
     block_group = []
+    rainbow = []
 
     # 그룹에는 일반 블록이 적어도 하나 있어야 하며, 일반 블록의 색은 모두 같아야 한다.
     # 검은색 블록은 포함되면 안 되고, 무지개 블록은 얼마나 들어있든 상관없다.
@@ -45,18 +45,23 @@ def bfs(arr, n, i1, i2):
         block_group.append((x, y))
         blocks += 1
         # 기준 블록 찾기
-        if arr[x][y] != 0:
-            if xx > x:
-                xx, yy = x, y
-            elif xx == x:
-                yy = min(yy, y)
-        else:
+        if arr[x][y] == 0:
             rainbows += 1
+            rainbow.append((x, y))
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
             if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == 0 and (arr[nx][ny] == color_check or arr[nx][ny] == 0):
                 visited[nx][ny] = 1
                 q.append((nx, ny))
+
+    for a, b in rainbow:
+        visited[a][b] = 0
+
+    block_group.sort(key=lambda x:(x[0], x[1]))
+    for a, b in block_group:
+        if arr[a][b] != 0:
+            xx, yy = a, b
+            break
 
     # 블록 그룹의 기준 블록은 무지개 블록이 아닌 블록 중에서 행의 번호가 가장 작은 블록, 그러한 블록이 여러개면 열의 번호가 가장 작은 블록이다.
     if blocks < 2:
@@ -73,10 +78,11 @@ score = 0
 # 크기가 가장 큰 블록 그룹이 존재하는 동안 계속해서 반복
 while True:
     block_group_list = []
+    visited = [[0] * n for _ in range(n)]
     for i1 in range(n):
         for i2 in range(n):
-            if arr[i1][i2] > 0:
-                block_array = bfs(arr, n, i1, i2)
+            if arr[i1][i2] > 0 and visited[i1][i2] == 0:
+                block_array = bfs(arr, visited, n, i1, i2)
                 if block_array != ():
                     block_group_list.append(block_array)
 
