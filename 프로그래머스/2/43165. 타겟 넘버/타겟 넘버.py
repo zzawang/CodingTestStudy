@@ -1,5 +1,5 @@
 from collections import deque
-def bfs(numbers, target):
+def solution(numbers, target):
     answer = 0
     q = deque([(numbers[0], 1), (-numbers[0], 1)])
     while q:
@@ -16,8 +16,4 @@ def bfs(numbers, target):
             q.append((s2 + numbers[c2], c2 + 1))
             q.append((s2 - numbers[c2], c2 + 1))
             
-    return answer
-
-def solution(numbers, target):
-    answer = bfs(numbers, target)
     return answer
