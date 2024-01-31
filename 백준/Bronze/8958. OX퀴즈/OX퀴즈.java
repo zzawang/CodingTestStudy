@@ -6,12 +6,12 @@ public class Main {
         int count = Integer.parseInt(scanner.nextLine());
 
         while (count-- > 0) {
-            String[] testcase = scanner.nextLine().split("");
+            char[] testcase = scanner.nextLine().toCharArray();
             int answer = 0;
             int continuity = 1;
 
             for (int index = 0; index < testcase.length; index++) {
-                if (testcase[index].equals("O")) {
+                if (testcase[index] == 'O') {
                     answer += continuity;
                     continuity += 1;
                 } else {
