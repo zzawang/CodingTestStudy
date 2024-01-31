@@ -1,19 +1,38 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] s = scanner.nextLine().split(" ");
-        String[] ascend = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
-        String[] descend = new String[]{"8", "7", "6", "5", "4", "3", "2", "1"};
+        int[] input = new int[8];
 
-        if (Arrays.equals(s, ascend)) {
-            System.out.print("ascending");
-        } else if (Arrays.equals(s, descend)) {
-            System.out.print("descending");
-        } else {
-            System.out.print("mixed");
+        for (int i = 0; i < 8; i++) {
+            input[i] = scanner.nextInt();
         }
+
+        if (isAscending(input)) {
+            System.out.println("ascending");
+        } else if (isDescending(input)) {
+            System.out.println("descending");
+        } else {
+            System.out.println("mixed");
+        }
+    }
+
+    static boolean isAscending(int[] array) {
+        for (int i = 0; i < 8; i++) {
+            if (array[i] != i + 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean isDescending(int[] array) {
+        for (int i = 0; i < 8; i++) {
+            if (array[i] != 8 - i) {
+                return false;
+            }
+        }
+        return true;
     }
 }
