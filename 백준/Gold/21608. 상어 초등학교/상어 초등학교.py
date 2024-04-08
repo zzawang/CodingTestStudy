@@ -29,17 +29,7 @@ def find_pos(likes, classroom):
         visited.append((x, y, count, empty))
 
 
-    # y가 작은 순서대로
-    visited.sort(key=lambda x: x[1])
-
-    # x가 작은 순서대로
-    visited.sort(key=lambda x: x[0])
-
-    # empty가 큰 순서대로
-    visited.sort(key=lambda x: x[3], reverse=True)
-
-    # count가 큰 순서대로
-    visited.sort(key=lambda x:x[2], reverse=True)
+    visited.sort(key=lambda x: (-x[2], -x[3], x[0], x[1]))
 
     return (visited[0][0], visited[0][1])
 
@@ -76,7 +66,6 @@ for student in student_sequence:
     likes = student_likes[student] # 학생이 좋아하는 4명의 학생들
     x, y = find_pos(likes, classroom) # 학생의 자리 찾기
     classroom[x][y] = student
-
 
 for i1 in range(N):
     for i2 in range(N):
