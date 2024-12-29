@@ -1,14 +1,13 @@
-import sys
-n, k = map(int, sys.stdin.readline().split())
+n, k = map(int, input().split())
 coins = []
 for _ in range(n):
-    coins.append(int(sys.stdin.readline()))
+    coins.append(int(input()))
 
-dp = [0] * (k+1)
+dp = [0] * 10001
 dp[0] = 1
 
-for c in coins:
-    for i in range(c, k+1):
-        dp[i] += dp[i-c]
+for coin in coins:
+    for num in range(coin, k + 1):
+        dp[num] += dp[num - coin]
 
 print(dp[k])
