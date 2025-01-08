@@ -1,24 +1,22 @@
-words1 = [0] + list(input())
-words2 = [0] + list(input())
+words1 = input()
+words2 = input()
+length1 = len(words1)
+length2 = len(words2)
 
-dp1 = [0] + [i for i in range(1, len(words1))]
-dp2 = [0] + [i for i in range(1, len(words2))]
+dp = [[0] * (length2 + 1) for _ in range(length1 + 1)]
 
-dp = [[0] * len(words2) for _ in range(len(words1))]
+for i in range(1, length1 + 1):
+    dp[i][0] = i
 
-for i in range(len(words1)):
-    for j in range(len(words2)):
-        if i == 0:
-            dp[i][j] = j
-        elif j == 0:
-            dp[i][j] = i
+for j in range(1, length2 + 1):
+    dp[0][j] = j
 
-
-for i in range(1, len(words1)):
-    for j in range(1, len(words2)):
-        if words1[i] == words2[j]:
+for i in range(1, length1 + 1):
+    for j in range(1, length2 + 1):
+        if words1[i - 1] == words2[j - 1]:
             dp[i][j] = dp[i - 1][j - 1]
         else:
-            dp[i][j] = min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1
+            dp[i][j] = min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j]) + 1
 
-print(dp[len(words1) - 1][len(words2) - 1])
+
+print(dp[length1][length2])
