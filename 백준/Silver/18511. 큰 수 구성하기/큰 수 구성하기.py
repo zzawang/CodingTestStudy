@@ -1,17 +1,20 @@
-n, k = map(int, input().split())
-a = list(map(int, input().split()))
-result = 0
- 
-def dfs(x):
-    global result
-    # n보다 작거나 같은 자연수에 대해서만 확인
-    if x > n:
+import sys
+
+def input():
+    return sys.stdin.readline().rstrip()
+
+def backTracking(num):
+    global ans
+    if num > N:
         return
-    # K의 원소로만 구성된 가장 큰 수를 저장
-    result = max(x, result)
-    for i in a:
-        # K의 원소로만 구성된 모든 수를 탐색
-        dfs(x * 10 + i)
- 
-dfs(0)
-print(result)
+    ans = max(ans,num)
+    for i in K:
+        num = num * 10 + i
+        backTracking(num)
+        num = (num - i) // 10
+
+N, C = map(int, input().split())
+K = list(map(int, input().split()))
+ans = 0
+backTracking(0)
+print(ans)
