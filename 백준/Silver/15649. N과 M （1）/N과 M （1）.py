@@ -1,25 +1,27 @@
 n = 0
 m = 0
 arr = []
+visited = []
 
 def solution():
-    global n, m, arr
+    global n, m, arr, visited
     n, m = map(int, input().split())
-    arr = [num for num in range(1, n + 1)]
-    for i, v in enumerate(arr):
-        back_tracking(i, [v])
+    visited = [False] * (n + 1)
+    arr = []
+    back_tracking()
 
-
-def back_tracking(index, num_arr):
-    global n, m, arr
-    if len(num_arr) == m:
-        print(" ".join([str(a) for a in num_arr]))
+def back_tracking():
+    global n, m, arr, visited
+    if len(arr) == m:
+        print(" ".join(map(str, arr)))
         return
 
-    for i in range(len(arr)):
-        if arr[i] not in num_arr:
-            num_arr.append(arr[i])
-            back_tracking(i, num_arr)
-            num_arr.remove(arr[i])
+    for i in range(1, n + 1):
+        if not visited[i]:
+            visited[i] = True
+            arr.append(i)
+            back_tracking()
+            arr.pop()
+            visited[i] = False
 
 solution()
