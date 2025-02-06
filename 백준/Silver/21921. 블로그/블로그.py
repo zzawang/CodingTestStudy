@@ -1,26 +1,22 @@
-import sys
+n, x = map(int, input().split())
+visitors = list(map(int, input().split()))
 
-N, X = map(int, sys.stdin.readline().split(" "))
-visiters = list(map(int, sys.stdin.readline().split(" ")))
+count = 0
+max_count = -1
+period = 0
 
-# Sliding Window
+for i, v in enumerate(visitors):
+    count += v
+    if i >= x - 1:
+        if count > max_count:
+            max_count = count
+            period = 1
+        elif count == max_count:
+            period += 1
+        count -= visitors[i - x + 1]
 
-windowSum = 0
-maxCount = 1
-max = 0
-
-for i, value in enumerate(visiters):
-    windowSum += value
-    if i >= X - 1:
-        if windowSum > max:
-            max = windowSum
-            maxCount = 0
-        if windowSum == max & max != 0:
-            maxCount += 1
-        windowSum -= visiters[i - X + 1]
-
-if max == 0:
+if max_count == 0:
     print("SAD")
 else:
-    print(max)
-    print(maxCount)
+    print(max_count)
+    print(period)
