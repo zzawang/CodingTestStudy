@@ -1,18 +1,18 @@
 import sys
 
-n, m = map(int, input().split())
-nums = []
-for _ in range(n):
-    nums.append(int(input()))
+n, m = map(int, sys.stdin.readline().split())
+nums = sorted([int(sys.stdin.readline().rstrip()) for _ in range(n)])
 
-nums.sort()
-answer = sys.maxsize
+answer = float('inf')
 start, end = 0, 0
 
 while start <= end < n:
     result = nums[end] - nums[start]
 
-    if result >= m:
+    if result == m:
+        print(m)
+        exit()
+    elif result > m:
         answer = min(answer, result)
         start += 1
     else:
