@@ -5,21 +5,20 @@ b_arr = list(map(int, input().split()))
 ap = 0
 bp = 0
 answer = []
-length = 0
 
-while length < a + b:
-    if bp == b or (ap < a and a_arr[ap] < b_arr[bp]):
-        answer.append(a_arr[ap])
-        ap += 1
-    elif ap == a or (bp < b and a_arr[ap] > b_arr[bp]):
-        answer.append(b_arr[bp])
-        bp += 1
+while ap <= a and bp <= b:
+    if bp == b:
+        answer.extend(a_arr[ap:])
+        break
+    elif ap == a:
+        answer.extend(b_arr[bp:])
+        break
     else:
-        answer.append(a_arr[ap])
-        answer.append(b_arr[bp])
-        ap += 1
-        bp += 1
-        length += 1
-    length += 1
+        if a_arr[ap] < b_arr[bp]:
+            answer.append(a_arr[ap])
+            ap += 1
+        else:
+            answer.append(b_arr[bp])
+            bp += 1
 
 print(" ".join(str(a) for a in answer))
