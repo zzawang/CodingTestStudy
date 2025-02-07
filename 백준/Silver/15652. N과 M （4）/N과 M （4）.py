@@ -9,10 +9,9 @@ def bt(num):
         return
 
     for i in range(num, n + 1):
-        if not answer or (answer and answer[-1] <= i):
-            answer.append(i)
-            bt(num)
-            answer.pop()
+        answer.append(i)
+        bt(i)
+        answer.pop()
 
 def solution():
     global n, m
