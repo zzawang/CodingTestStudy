@@ -13,7 +13,7 @@ def dfs(idx, length):
 
     prev = 0
     for i in range(n):
-        if prev != nums[i] or (i == idx and prev == nums[i]):
+        if prev != nums[i]:
             prev = nums[i]
             arr.append(nums[i])
             dfs(i, length + 1)
