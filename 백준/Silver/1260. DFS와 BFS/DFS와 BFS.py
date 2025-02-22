@@ -1,34 +1,40 @@
 from collections import deque
 
-def dfs(visited, n, start):
-    print(start, end = ' ')
+def bfs(start):
+    visited = [False] * (n + 1)
     visited[start] = True
+    q = deque([start])
 
-    for n1 in sorted(n[start]):
-        if visited[n1] == False:
-            dfs(visited, n, n1)
-
-def bfs(visited, q):
     while q:
-        s = q.popleft()
-        visited[s] = True
-        print(s, end=' ')
-        for s1 in sorted(n[s]):
-            if visited[s1] == False:
-                q.append(s1)
-                visited[s1] = True
+        node = q.popleft()
+        print(node, end=' ')
 
-N, V, start = map(int, input().split())
-n = [[] for _ in range(N+1)]
+        for linked_node in nodes[node]:
+            if not visited[linked_node]:
+                visited[linked_node] = True
+                q.append(linked_node)
 
-for v in range(V):
-    a, b = map(int, input().split())
-    if b not in n[a]:
-        n[a].append(b)
-        n[b].append(a)
 
-dfs([False]*(N+1), n, start)
+def dfs(start, visited):
+    visited[start] = True
+    print(start, end=' ')
+
+    for node in nodes[start]:
+        if not visited[node]:
+            dfs(node, visited)
+
+
+n, m, v = map(int, input().split())
+nodes = [[] for _ in range(n + 1)]
+
+for _ in range(m):
+    n1, n2 = map(int, input().split())
+    nodes[n1].append(n2)
+    nodes[n2].append(n1)
+
+for node_arr in nodes:
+    node_arr.sort()
+
+dfs(v, [False] * (n + 1))
 print()
-q = deque()
-q.append(start)
-bfs([False]*(N+1), q)
+bfs(v)
