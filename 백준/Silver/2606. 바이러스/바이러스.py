@@ -1,37 +1,33 @@
 from collections import deque
-def dfs(arr, visited, n, start):
-    visited[start] = True
-    arr.append(start)
-    for i in sorted(n[start]):
-        if not visited[i]:
-            dfs(arr, visited, n, i)
 
-def bfs(arr, visited, n, start):
+def bfs(start):
+    visited = [False] * (n + 1)
+    visited[start] = True
     q = deque([start])
-    visited[start] = True
+    answer = 0
+
     while q:
-        i = q.popleft()
-        visited[i] = True
-        arr.append(i)
-        for i1 in sorted(n[i]):
-            if not visited[i1]:
-                q.append(i1)
-                visited[i1] = True
+        computer = q.popleft()
+        for c in computers[computer]: # 네트워크 상에서 직접 연결되어 있는 컴퓨터 순회
+            if not visited[c]:
+                visited[c] = True
+                q.append(c)
+                answer += 1
 
-N = int(input())
-V = int(input())
+    return answer
 
-n = [[] for _ in range(N+1)]
-for i in range(V):
-    a, b = map(int, input().split())
-    if b not in n[a]:
-        n[a].append(b)
-        n[b].append(a)
+# def dfs(start):
 
-# arr1 = []
-# dfs(arr1, [False]*(N+1), n, 1)
-# print(len(arr1)-1)
 
-arr2 = []
-bfs(arr2, [False]*(N+1), n, 1)
-print(len(arr2)-1)
+
+n = int(input())
+pairs = int(input())
+computers = [[] for _ in range(n + 1)]
+
+for _ in range(pairs):
+    p1, p2 = map(int, input().split())
+    computers[p1].append(p2)
+    computers[p2].append(p1)
+
+print(bfs(1))
+# print(dfs(1))
