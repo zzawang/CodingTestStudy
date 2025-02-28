@@ -1,10 +1,13 @@
-n = int(input())
-words = list(map(int, input().split()))
-dp = [1] * n
+import sys
 
-for i in range(n):
-    for j in range(i):
-        if words[i] > words[j]:
+n = int(sys.stdin.readline().rstrip())
+permutations = [0] + list(map(int, sys.stdin.readline().rstrip().split()))
+
+dp = [1] * (n + 1)
+
+for i in range(1, n + 1):
+    for j in range(1, i):
+        if permutations[i] > permutations[j]:
             dp[i] = max(dp[i], dp[j] + 1)
 
 print(max(dp))
