@@ -1,21 +1,14 @@
-n = int(input())
+import sys
+n = int(sys.stdin.readline())
 
-five = [-1] * 5001
-five[3], five[5] = 0, 1
+dp = [float("inf")]*5001
+dp[3] = 1
+dp[5] = 1
 
-three = [-1] * 5001
-three[3], three[5] = 1, 0
+for i in range(6, n + 1):
+    dp[i] = min(dp[i - 3], dp[i - 5]) + 1
 
-for i in range(3, 5001):
-    if five[i - 5] != -1:
-        five[i] = five[i - 5] + 1
-        three[i] = 0
-    if i % 5 != 0 and three[i - 3] != -1:
-        three[i] = three[i - 3] + 1
-        if five[i] == -1:
-            five[i] = 0
-
-if five[n] + three[n] == -2:
+if dp[n] == float("inf"):
     print(-1)
 else:
-    print(five[n] + three[n])
+    print(dp[n])
