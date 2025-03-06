@@ -1,16 +1,15 @@
 import sys
 
-def chk(n, S):
-    return n * (n + 1) // 2 > S
-
 S = int(sys.stdin.readline().rstrip())
-left, right = 1, 93000
+start = 1
+end = S
 
-while left <= right:
-    mid = (left + right) // 2
-    if chk(mid, S):
-        right = mid - 1
+while start <= end:
+    mid = (start + end) // 2
+    if mid * (mid + 1) // 2 <= S:
+        answer = mid
+        start = mid + 1
     else:
-        left = mid + 1
+        end = mid - 1
 
-print(right)
+print(answer)
