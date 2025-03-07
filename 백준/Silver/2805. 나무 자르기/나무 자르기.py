@@ -1,27 +1,20 @@
 import sys
 
-def input():
-    return sys.stdin.readline().rstrip()
+N, M = map(int, sys.stdin.readline().rstrip().split())
+tree = sorted(list(map(int, sys.stdin.readline().rstrip().split())))
+start, end = 0, max(tree)
 
-def binary_search():
-    global ans
-    start, end = 0, max(arr)
+while start <= end:
+    mid = (start + end) // 2
+    result = 0
+    for t in tree:
+        tmp = t - mid
+        if tmp > 0:
+            result += tmp
 
-    while start <= end:
-        mid = (start + end) // 2
-        total_length = 0
-        for i in arr:
-            if i - mid >= 0:
-                total_length += i - mid
+    if result >= M:
+        start = mid + 1
+    else:
+        end = mid - 1
 
-        if total_length < M:
-            end = mid - 1
-        else:
-            start = mid + 1
-    ans = end
-
-N, M = map(int, input().split())
-arr = list(map(int, input().split()))
-ans = 0
-binary_search()
-print(ans)
+print(end)
