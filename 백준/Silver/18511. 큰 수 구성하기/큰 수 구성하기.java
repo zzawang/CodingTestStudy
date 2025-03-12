@@ -7,18 +7,12 @@ public class Main {
     private static int[] arr;  // k의 원소들
     private static int N, K, answer;
 
-    public static void find(int depth, int num) {
-        if (depth == 8) return;
-
-        num *= 10;
-
+    public static void find(int num) {
         if (num > N) return;
 
-        for (int i = 0; i < K; i++) {
-            int tmp = num + arr[i];
-            if (tmp > N) continue;
-            answer = Math.max(answer, tmp);
-            find(depth + 1, tmp);
+        for (int a : arr) {
+            answer = Math.max(answer, num);
+            find(num * 10 + a);
         }
     }
 
@@ -35,7 +29,7 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        find(0, 0);
+        find(0);
         System.out.println(answer);
     }
 }
