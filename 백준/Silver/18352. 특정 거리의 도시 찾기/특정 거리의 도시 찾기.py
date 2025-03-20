@@ -1,34 +1,33 @@
-from collections import deque
 import sys
+from collections import defaultdict
+from collections import deque
 
-# 입력
-# n, m, k, s = map(int, input().split())
-n, m, k, s = list(map(int, sys.stdin.readline().split()))
 
-graph = {}
-for i in range(n+1):
-    graph[i] = []
-for i in range(m):
-    a, b = list(map(int, sys.stdin.readline().split()))
-    graph[a].append(b)
+N, M, K, X = map(int, sys.stdin.readline().rstrip().split())
+cities = defaultdict(list)
 
-# bfs
-dist_list = [0 for _ in range(n + 1)]
-visited = [0 for _ in range(n+1)]
-queue = deque([s])
-# queue.append(s)
-visited[s] = 1
-while (queue):
-    now = queue.popleft()
-    for j in graph[now]:
-        if visited[j] == 0:
-            queue.append(j)
-            visited[j] = 1
-            dist_list[j] = dist_list[now] + 1
+for _ in range(M):
+    c1, c2 = map(int, sys.stdin.readline().rstrip().split())
+    cities[c1].append(c2)
+
+
+visited = [-1] * (N + 1)
+visited[X] = 0
+q = deque([(X, 0)])  # 현재 도시, 최단 거리
+
+while q:
+    city, distance = q.popleft()
+    for c in cities[city]:
+        if visited[c] == -1:
+            visited[c] = distance + 1
+            q.append((c, distance + 1))
+
+answer = []
 check = 0
-for i in range(1, n+1):
-    if dist_list[i] == k:
-        print(i)
+for idx, r in enumerate(visited):
+    if r == K:
+        print(idx)
         check += 1
+
 if check == 0:
     print(-1)
