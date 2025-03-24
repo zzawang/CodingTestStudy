@@ -2,22 +2,12 @@ import sys
 
 D, P = map(int, sys.stdin.readline().rstrip().split())
 
-length = []
-capabilities = []
+dp = [1e9] + [0] * D
 for _ in range(P):
     L, C = map(int, sys.stdin.readline().rstrip().split())
-    length.append(L)
-    capabilities.append(C)
+    tmp = dp[:]
+    for i in range(L, D + 1):
+        if tmp[i - L]: # 최대 비용이 저장되어 있는 경우만 진행
+            dp[i] = max(dp[i], min(tmp[i - L], C))
 
-dp = [[0] * (P + 1) for _ in range(D + 1)]
-for i in range(1, D + 1):
-    for j in range(1, P + 1):
-        l, c = length[j - 1], capabilities[j - 1]
-        if i < l:
-            dp[i][j] = dp[i][j - 1]
-        elif i == l:
-            dp[i][j] = max(dp[i][j - 1], c)
-        else:
-            dp[i][j] = max(dp[i][j - 1], min(dp[i - l][j - 1], c))
-
-print(dp[D][P])
+print(dp[D])
